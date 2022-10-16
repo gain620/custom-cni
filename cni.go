@@ -5,6 +5,11 @@ import (
 	"github.com/containernetworking/cni/pkg/version"
 )
 
+type CustomBridge struct {
+	BridgeName string `json:"bridgeName"`
+	IP         string `json:"ip"`
+}
+
 func cmdAdd(args *skel.CmdArgs) error {
 	return nil
 }
