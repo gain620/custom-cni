@@ -13,12 +13,8 @@ const (
 func createBridge(name string) (*netlink.Bridge, error) {
 	br := &netlink.Bridge{
 		LinkAttrs: netlink.LinkAttrs{
-			Name: name,
-			MTU:  DefaultMTU,
-			// Let kernel use default txqueuelen; leaving it unset
-			// means 0, and a zero-length TX queue messes up FIFO
-			// traffic shapers which use TX queue length as the
-			// default packet limit
+			Name:   name,
+			MTU:    DefaultMTU,
 			TxQLen: -1,
 		},
 	}
@@ -28,7 +24,6 @@ func createBridge(name string) (*netlink.Bridge, error) {
 		return nil, err
 	}
 
-	//Fetch the bridge Object, we need to use it for the veth
 	l, err := netlink.LinkByName(name)
 	if err != nil {
 		return nil, fmt.Errorf("could not lookup %q: %v", name, err)
